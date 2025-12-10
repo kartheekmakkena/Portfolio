@@ -292,29 +292,68 @@ document.querySelectorAll('.skill-item').forEach(skill => {
     });
 });
 
-// Add loading animation
+// Enhanced loading animation with fade-in
 window.addEventListener('load', () => {
     document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 0.5s ease';
+    document.body.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+    
+    // Animate elements on load
+    const animateElements = document.querySelectorAll('.hero-content, .section-title, .project-card, .skill-category');
+    animateElements.forEach((el, index) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = `opacity 0.8s ease ${index * 0.1}s, transform 0.8s ease ${index * 0.1}s`;
+    });
     
     setTimeout(() => {
         document.body.style.opacity = '1';
+        animateElements.forEach(el => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+        });
     }, 100);
 });
 
-// Progress bar for page scroll
+// Add parallax effect to hero section
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const hero = document.querySelector('.hero');
+    if (hero && scrolled < window.innerHeight) {
+        hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+        hero.style.opacity = 1 - (scrolled / window.innerHeight) * 0.5;
+    }
+    lastScroll = scrolled;
+});
+
+// Enhanced Progress bar for page scroll
 const createProgressBar = () => {
     const progressBar = document.createElement('div');
+    progressBar.id = 'scroll-progress';
     progressBar.style.cssText = `
         position: fixed;
         top: 0;
         left: 0;
-        height: 3px;
-        background: linear-gradient(to right, #6366f1, #ec4899);
+        height: 4px;
+        background: linear-gradient(90deg, #6366f1, #ec4899, #f59e0b);
+        background-size: 200% 100%;
         z-index: 9999;
-        transition: width 0.1s ease;
+        transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 2px 10px rgba(99, 102, 241, 0.5);
+        animation: progressGradient 3s ease infinite;
     `;
     document.body.appendChild(progressBar);
+
+    // Add gradient animation
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes progressGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    `;
+    document.head.appendChild(style);
 
     window.addEventListener('scroll', () => {
         const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -324,6 +363,48 @@ const createProgressBar = () => {
 };
 
 createProgressBar();
+
+// Add ripple effect to buttons
+document.querySelectorAll('.btn').forEach(button => {
+    button.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(0);
+            animation: ripple 0.6s ease-out;
+            left: ${x}px;
+            top: ${y}px;
+            pointer-events: none;
+        `;
+        
+        this.style.position = 'relative';
+        this.style.overflow = 'hidden';
+        this.appendChild(ripple);
+        
+        setTimeout(() => ripple.remove(), 600);
+    });
+});
+
+// Add ripple animation
+const rippleStyle = document.createElement('style');
+rippleStyle.textContent = `
+    @keyframes ripple {
+        to {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(rippleStyle);
 
 // Console message for developers
 console.log(
