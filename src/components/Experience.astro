@@ -1,0 +1,49 @@
+---
+import { config } from '../config';
+---
+
+{config.experience && config.experience.length > 0 && (
+  <section id="experience" class="py-24">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-4xl font-bold text-center mb-12 relative inline-block w-full">
+        Experience
+        <span class="block w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mt-4 rounded"></span>
+      </h2>
+      <div class="relative pl-8">
+        <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary to-secondary"></div>
+        {config.experience.map((exp, index) => (
+          <div class="relative mb-12">
+            <div class="absolute left-[-2.25rem] top-0 w-4 h-4 bg-primary rounded-full border-4 border-white shadow-lg"></div>
+            <div class="bg-white/95 backdrop-blur-md p-6 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl hover:translate-x-2 hover:scale-[1.01] transition-all duration-400 ml-4 relative group">
+              <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-400 rounded-l-2xl"></div>
+              <h3 class="text-xl font-bold text-primary mb-1">{exp.title}</h3>
+              <h4 class="text-lg text-gray-600 mb-2">{exp.company}</h4>
+              <div class="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                {exp.period}
+              </div>
+              <ul class="list-none space-y-2 mb-4">
+                {exp.description.map((desc) => (
+                  <li class="text-gray-600 flex items-start gap-2">
+                    <span class="text-primary mt-1">▹</span>
+                    <span>{desc}</span>
+                  </li>
+                ))}
+              </ul>
+              <div class="flex flex-wrap gap-2">
+                {exp.tags.map((tag) => (
+                  <span class="px-3 py-1 bg-gray-100 text-primary border border-primary rounded-full text-xs font-medium">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+

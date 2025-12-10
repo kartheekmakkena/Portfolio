@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Skills from '../components/Skills.astro';
+import Projects from '../components/Projects.astro';
+import Experience from '../components/Experience.astro';
+import Contact from '../components/Contact.astro';
+import { config } from '../config';
+---
+
+<Layout title={`${config.name} - ${config.title}`} description={config.description}>
+  <Navigation />
+  <Hero />
+  <About />
+  <Skills />
+  <Projects />
+  <Experience />
+  <Contact />
+  
+  <footer class="bg-gray-900 text-white text-center py-8">
+    <div class="max-w-7xl mx-auto px-4">
+      <p>&copy; 2025 {config.name}. All rights reserved.</p>
+      <p class="mt-2 text-gray-400">Built with ❤️ and dedication</p>
+    </div>
+  </footer>
+</Layout>
+

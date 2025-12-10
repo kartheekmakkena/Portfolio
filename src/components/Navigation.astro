@@ -1,0 +1,33 @@
+---
+import { config } from '../config';
+---
+
+<nav id="navbar" class="fixed top-0 w-full bg-white/80 backdrop-blur-[20px] backdrop-saturate-180 border-b border-white/20 shadow-sm z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <a href="#home" class="text-xl font-bold text-primary hover:text-primary-dark transition-colors">
+        Portfolio
+      </a>
+      <ul class="hidden md:flex gap-8">
+        <li><a href="#home" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full">Home</a></li>
+        <li><a href="#about" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full">About</a></li>
+        <li><a href="#skills" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full">Skills</a></li>
+        <li><a href="#projects" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full">Projects</a></li>
+        <li><a href="#experience" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full">Experience</a></li>
+        <li><a href="#contact" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full">Contact</a></li>
+      </ul>
+      <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<style>
+  #navbar.scrolled {
+    @apply bg-white/95 shadow-md;
+  }
+</style>
+

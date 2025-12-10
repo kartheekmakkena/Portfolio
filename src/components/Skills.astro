@@ -1,0 +1,41 @@
+---
+import { config } from '../config';
+
+const iconMap: Record<string, string> = {
+  brain: '🧠',
+  code: '💻',
+  tools: '🛠️',
+};
+---
+
+{config.skills && config.skills.length > 0 && (
+  <section id="skills" class="py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-4xl font-bold text-center mb-12 relative inline-block w-full">
+        Skills & Technologies
+        <span class="block w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mt-4 rounded"></span>
+      </h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        {config.skills.map((skill) => (
+          <div class="bg-white/90 backdrop-blur-md p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl hover:scale-[1.02] hover:-translate-y-2 transition-all duration-400 relative overflow-hidden group">
+            <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
+            <div class="absolute -inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-400"></div>
+            <h3 class="text-xl font-bold text-primary mb-4 flex items-center gap-2 relative z-10">
+              <span>{iconMap[skill.icon || ''] || '📌'}</span>
+              {skill.category}
+            </h3>
+            <div class="flex flex-wrap gap-2 relative z-10">
+              {skill.items.map((item) => (
+                <span class="skill-item px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-700 hover:bg-primary hover:text-white transition-all duration-300 hover:scale-110 cursor-default relative overflow-hidden group/item">
+                  <span class="absolute inset-0 bg-primary rounded-full scale-0 group-hover/item:scale-150 transition-transform duration-600 opacity-0 group-hover/item:opacity-100"></span>
+                  <span class="relative z-10">{item}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
