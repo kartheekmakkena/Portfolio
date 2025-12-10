@@ -186,12 +186,31 @@ function typeWriter(element, text, speed = 100) {
 //     typeWriter(heroTitle, originalText, 80);
 // });
 
-// Add parallax effect to hero section
+// Enhanced parallax effect to hero section with 3D transforms
 window.addEventListener('scroll', () => {
     const scrolled = window.scrollY;
     const hero = document.querySelector('.hero');
+    const heroContent = document.querySelector('.hero-content');
+    
+    if (hero && scrolled < window.innerHeight) {
+        const parallaxSpeed = scrolled * 0.3;
+        const rotateX = scrolled * 0.05;
+        hero.style.transform = `translateY(${parallaxSpeed}px)`;
+        hero.style.opacity = 1 - (scrolled / window.innerHeight) * 0.5;
+        
+        if (heroContent) {
+            heroContent.style.transform = `translateY(${parallaxSpeed * 0.5}px) rotateX(${rotateX}deg)`;
+        }
+    }
+});
+
+// Add mouse move parallax effect to hero
+document.addEventListener('mousemove', (e) => {
+    const hero = document.querySelector('.hero-content');
     if (hero) {
-        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        const x = (e.clientX / window.innerWidth - 0.5) * 20;
+        const y = (e.clientY / window.innerHeight - 0.5) * 20;
+        hero.style.transform = `translate(${x}px, ${y}px)`;
     }
 });
 
@@ -364,37 +383,44 @@ const createProgressBar = () => {
 
 createProgressBar();
 
-// Add ripple effect to buttons
+// Enhanced ripple effect with multiple waves
 document.querySelectorAll('.btn').forEach(button => {
     button.addEventListener('click', function(e) {
-        const ripple = document.createElement('span');
         const rect = this.getBoundingClientRect();
         const size = Math.max(rect.width, rect.height);
         const x = e.clientX - rect.left - size / 2;
         const y = e.clientY - rect.top - size / 2;
         
-        ripple.style.cssText = `
-            position: absolute;
-            width: ${size}px;
-            height: ${size}px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            transform: scale(0);
-            animation: ripple 0.6s ease-out;
-            left: ${x}px;
-            top: ${y}px;
-            pointer-events: none;
-        `;
-        
-        this.style.position = 'relative';
-        this.style.overflow = 'hidden';
-        this.appendChild(ripple);
-        
-        setTimeout(() => ripple.remove(), 600);
+        // Create multiple ripple waves
+        for (let i = 0; i < 3; i++) {
+            const ripple = document.createElement('span');
+            const delay = i * 0.15;
+            const scale = 1 + (i * 0.5);
+            
+            ripple.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(255, 255, 255, ${0.6 - i * 0.2}) 0%, transparent 70%);
+                transform: scale(0);
+                animation: rippleWave ${0.8 + i * 0.2}s ease-out ${delay}s;
+                left: ${x}px;
+                top: ${y}px;
+                pointer-events: none;
+                z-index: 1;
+            `;
+            
+            this.style.position = 'relative';
+            this.style.overflow = 'hidden';
+            this.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), (0.8 + i * 0.2 + delay) * 1000);
+        }
     });
 });
 
-// Add ripple animation
+// Enhanced ripple animations
 const rippleStyle = document.createElement('style');
 rippleStyle.textContent = `
     @keyframes ripple {
@@ -403,8 +429,43 @@ rippleStyle.textContent = `
             opacity: 0;
         }
     }
+    @keyframes rippleWave {
+        0% {
+            transform: scale(0);
+            opacity: 0.8;
+        }
+        50% {
+            opacity: 0.4;
+        }
+        100% {
+            transform: scale(5);
+            opacity: 0;
+        }
+    }
 `;
 document.head.appendChild(rippleStyle);
+
+// Add floating animation to project cards
+document.querySelectorAll('.project-card').forEach((card, index) => {
+    card.style.animationDelay = `${index * 0.1}s`;
+    card.classList.add('float-card');
+});
+
+const floatStyle = document.createElement('style');
+floatStyle.textContent = `
+    .float-card {
+        animation: floatCard 6s ease-in-out infinite;
+    }
+    @keyframes floatCard {
+        0%, 100% {
+            transform: translateY(0px) rotateY(0deg);
+        }
+        50% {
+            transform: translateY(-10px) rotateY(2deg);
+        }
+    }
+`;
+document.head.appendChild(floatStyle);
 
 // Console message for developers
 console.log(
