@@ -56,7 +56,7 @@ export const config: Config = {
   location: "Bangalore, India",
   email: "makkena.kartheek.21033@iitgoa.ac.in",
   phone: "+91 8919699339",
-  resume: "/assets/kar (1).pdf",
+  resume: "/Portfolio/assets/kar (1).pdf",
   social: {
     github: "https://github.com/kartheekmakkena",
     linkedin: "https://www.linkedin.com/in/makkena-kartheek-624209257/",
